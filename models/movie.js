@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const { regExLink } = require('constants/constants');
+const { regExLink } = require('../constants/constants');
 
 const movieSchema = new mongoose.Schema({
   country: {
@@ -50,9 +50,13 @@ const movieSchema = new mongoose.Schema({
     },
   },
   owner: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'user',
     require: true,
   },
   movieId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'user',
     require: true,
   },
   nameRU: {

@@ -24,6 +24,7 @@ module.exports.createMovie = (req, res, next) => {
     nameRU,
     nameEN,
   } = req.body;
+
   const owner = req.user._id;
   Movie.create({
     country,
@@ -40,7 +41,7 @@ module.exports.createMovie = (req, res, next) => {
     nameEN,
   })
     .then((movie) => res.status(201)
-      .send({ movie }))
+      .send(movie))
     .catch((err) => {
       if (err.name === 'ValidationError') {
         next(new BadRequestError('Переданы некорректные данные для создания карточки'));

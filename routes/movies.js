@@ -9,10 +9,10 @@ const {
 const {
   validateCreateMovie,
   validateMovieId,
-} =require('../controllers/validations');
+} =require('../middlewares/celebrateValidation');
 
 router.get('/movies', getSavedMovies);
 router.post('/movies', validateCreateMovie, createMovie);
-router.delete('/movies/_id', validateMovieId, removeMovie);
+router.delete('/movies/:_id', validateMovieId, removeMovie);
 
 module.exports = router;

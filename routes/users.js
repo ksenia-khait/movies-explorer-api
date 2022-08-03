@@ -8,7 +8,7 @@ const {
 const {
   validateGetUser,
   validateUpdateUser,
-} =require('../controllers/validations');
+} =require('../middlewares/celebrateValidation');
 
 router.get('/users/me', validateGetUser, getUser);
 router.patch('/users/me', validateUpdateUser, updateUser);

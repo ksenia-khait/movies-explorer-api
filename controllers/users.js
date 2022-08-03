@@ -7,7 +7,7 @@ const {NODE_ENV, JWT_SECRET} = process.env;
 const BadRequestError = require('../errors/badRequestError');
 const NotFoundError = require('../errors/notFoundError');
 const ConflictError = require('../errors/conflictError');
-const UnauthorizedError = require('../errors/unathorizedError');
+const UnauthorizedError = require('../errors/unauthorizedError');
 
 const MONGO_DUPLICATE_ERROR_CODE = 11000;
 const SALT_ROUNDS = 8;
