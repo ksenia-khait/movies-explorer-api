@@ -9,7 +9,7 @@ const {
 const {
   validateCreateMovie,
   validateMovieId,
-} =require('../middlewares/celebrateValidation');
+} = require('../middlewares/celebrateValidation');
 
 router.get('/movies', getSavedMovies);
 router.post('/movies', validateCreateMovie, createMovie);

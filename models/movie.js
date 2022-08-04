@@ -25,7 +25,6 @@ const movieSchema = new mongoose.Schema({
   image: {
     type: String,
     require: true,
-    default: 'https://pictures.s3.yandex.net/resources/jacques-cousteau_1604399756.png',
     validate: {
       validator: (v) => regExLink.test(v),
       message: 'Неверно указан формат ссылки',
@@ -34,7 +33,6 @@ const movieSchema = new mongoose.Schema({
   trailerLink: {
     type: String,
     require: true,
-    default: 'https://pictures.s3.yandex.net/resources/jacques-cousteau_1604399756.png',
     validate: {
       validator: (v) => regExLink.test(v),
       message: 'Неверно указан формат ссылки',
@@ -43,7 +41,6 @@ const movieSchema = new mongoose.Schema({
   thumbnail: {
     type: String,
     require: true,
-    default: 'https://pictures.s3.yandex.net/resources/jacques-cousteau_1604399756.png',
     validate: {
       validator: (v) => regExLink.test(v),
       message: 'Неверно указан формат ссылки',
@@ -55,8 +52,7 @@ const movieSchema = new mongoose.Schema({
     require: true,
   },
   movieId: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'user',
+    type: Number,
     require: true,
   },
   nameRU: {

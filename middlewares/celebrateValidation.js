@@ -3,6 +3,8 @@ const {
   Joi,
 } = require('celebrate');
 
+const { regExLink } = require('../constants/constants');
+
 module.exports.validateRegister = celebrate({
   body: Joi.object()
     .keys({
@@ -65,14 +67,30 @@ module.exports.validateCreateMovie = celebrate({
       description: Joi.string()
         .required(),
       image: Joi.string()
-        .required(),
+        .required()
+        .custom((value, helpers) => {
+          if (!regExLink.test(value)) {
+            return helpers.error('Некорректный формат ссылки');
+          }
+          return value;
+        }),
       trailerLink: Joi.string()
-        .required(),
+        .required()
+        .custom((value, helpers) => {
+          if (!regExLink.test(value)) {
+            return helpers.error('Некорректный формат ссылки');
+          }
+          return value;
+        }),
       thumbnail: Joi.string()
-        .required(),
-      owner: Joi.string()
-        .required(),
-      movieId: Joi.string()
+        .required()
+        .custom((value, helpers) => {
+          if (!regExLink.test(value)) {
+            return helpers.error('Некорректный формат ссылки');
+          }
+          return value;
+        }),
+      movieId: Joi.number()
         .required(),
       nameRU: Joi.string()
         .required(),
@@ -86,7 +104,7 @@ module.exports.validateMovieId = celebrate({
     .keys({
       _id: Joi.string()
         .required()
-        .length(24)
-        .hex(),
+        .hex()
+        .length(24),
     }),
 })
