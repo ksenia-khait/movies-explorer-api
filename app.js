@@ -1,8 +1,14 @@
+require('dotenv').config();
+
+console.log(process.env.NODE_ENV);
+
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
+const cors = require('cors');
 
 const { auth } = require('./middlewares/auth');
+const { allowedCors } = require('./constants/constants');
 const { validateRegister, validateLogin } =require('./middlewares/celebrateValidation');
 const { register, login } = require('./controllers/users');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
@@ -19,6 +25,11 @@ app.use(bodyParser.urlencoded({ extended: true }));
 mongoose.connect('mongodb://localhost:27017/bitfilmsdb');
 
 app.use(requestLogger);
+
+app.use(cors({
+  origin: allowedCors,
+  credentials: true,
+}));
 
 app.post('/signup', validateRegister, register);
 app.post('/signin', validateLogin, login);
