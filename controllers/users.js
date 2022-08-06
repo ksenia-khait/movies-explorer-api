@@ -2,7 +2,7 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const User = require('../models/user');
 
-const {NODE_ENV, JWT_SECRET} = process.env;
+const { NODE_ENV, JWT_SECRET } = process.env;
 
 const BadRequestError = require('../errors/badRequestError');
 const NotFoundError = require('../errors/notFoundError');
@@ -65,7 +65,7 @@ module.exports.login = (req, res, next) => {
         next(err);
       }
     });
-}
+};
 
 module.exports.getUser = (req, res, next) => {
   User.findById(req.user._id)
@@ -82,7 +82,7 @@ module.exports.getUser = (req, res, next) => {
         next(err);
       }
     });
-}
+};
 
 module.exports.updateUser = (req, res, next) => {
   const {
@@ -105,7 +105,7 @@ module.exports.updateUser = (req, res, next) => {
       if (!user) {
         throw new NotFoundError('Пользователь не найден');
       }
-      return res.send({user});
+      return res.send({ user });
     })
     .catch((err) => {
       if (err.name === 'CastError' || err.name === 'ValidationError') {
@@ -114,5 +114,4 @@ module.exports.updateUser = (req, res, next) => {
         next(err);
       }
     });
-}
-
+};

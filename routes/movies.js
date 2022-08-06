@@ -3,7 +3,7 @@ const router = require('express').Router();
 const {
   getSavedMovies,
   createMovie,
-  removeMovie
+  removeMovie,
 } = require('../controllers/movies');
 
 const {

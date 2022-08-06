@@ -107,4 +107,4 @@ module.exports.validateMovieId = celebrate({
         .hex()
         .length(24),
     }),
-})
+});

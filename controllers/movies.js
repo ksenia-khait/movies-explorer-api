@@ -11,7 +11,6 @@ module.exports.getSavedMovies = (req, res, next) => {
 };
 
 module.exports.createMovie = (req, res, next) => {
-  console.log(456)
   const {
     country,
     director,
@@ -53,12 +52,9 @@ module.exports.createMovie = (req, res, next) => {
 };
 
 module.exports.removeMovie = (req, res, next) => {
-  console.log(req)
   Movie.findById(req.params._id)
     .orFail(new NotFoundError('Передан несуществующий _id карточки'))
-
     .then((movie) => {
-      console.log(movie)
       if (movie.owner.toString() !== req.user._id) {
         throw new ForbiddenError('Вы не можете удалять чужие карточки');
       }
@@ -72,5 +68,5 @@ module.exports.removeMovie = (req, res, next) => {
       } else {
         next(err);
       }
-    })
-}
+    });
+};
