@@ -2,15 +2,21 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const User = require('../models/user');
 
-const { NODE_ENV, JWT_SECRET } = process.env;
+const { JWT_IN_DEV } = require('../constants/constants');
 
 const BadRequestError = require('../errors/badRequestError');
 const NotFoundError = require('../errors/notFoundError');
 const ConflictError = require('../errors/conflictError');
 const UnauthorizedError = require('../errors/unauthorizedError');
 
-const MONGO_DUPLICATE_ERROR_CODE = 11000;
-const SALT_ROUNDS = 8;
+const {
+  MONGO_DUPLICATE_ERROR_CODE,
+  SALT_ROUNDS,
+  BAD_REQUEST_ERROR_MESSAGE,
+  NOT_FOUND_ERROR_MESSAGE,
+  CONFLICT_ERROR_MESSAGE,
+  UNAUTHORIZED_ERROR_MESSAGE,
+} = require('../constants/constants');
 
 module.exports.register = (req, res, next) => {
   const {
@@ -33,9 +39,9 @@ module.exports.register = (req, res, next) => {
       }))
     .catch((err) => {
       if (err.code === MONGO_DUPLICATE_ERROR_CODE) {
-        next(new ConflictError('Данный email уже занят'));
+        next(new ConflictError(CONFLICT_ERROR_MESSAGE));
       } else if (err.name === 'ValidationError') {
-        next(new BadRequestError('Переданы некорректные данные при создании пользователя'));
+        next(new BadRequestError(BAD_REQUEST_ERROR_MESSAGE));
       } else {
         next(err);
       }
@@ -52,7 +58,7 @@ module.exports.login = (req, res, next) => {
     .then((user) => {
       const token = jwt.sign(
         { _id: user._id },
-        NODE_ENV === 'production' ? JWT_SECRET : 'dev-secret',
+        JWT_IN_DEV,
         { expiresIn: '7d' },
       );
       res.status(200)
@@ -60,7 +66,7 @@ module.exports.login = (req, res, next) => {
     })
     .catch((err) => {
       if (err.statusCode === 401) {
-        next(new UnauthorizedError('Передан некорректный email или пароль'));
+        next(new UnauthorizedError(UNAUTHORIZED_ERROR_MESSAGE));
       } else {
         next(err);
       }
@@ -71,13 +77,13 @@ module.exports.getUser = (req, res, next) => {
   User.findById(req.user._id)
     .then((user) => {
       if (!user) {
-        throw new NotFoundError('Пользователь с указанным _id не найден');
+        throw new NotFoundError(NOT_FOUND_ERROR_MESSAGE);
       }
       return res.send(user);
     })
     .catch((err) => {
       if (err.name === 'CastError') {
-        next(new BadRequestError('Переданы некорректные данные при поиске пользователя'));
+        next(new BadRequestError(BAD_REQUEST_ERROR_MESSAGE));
       } else {
         next(err);
       }
@@ -103,13 +109,13 @@ module.exports.updateUser = (req, res, next) => {
   )
     .then((user) => {
       if (!user) {
-        throw new NotFoundError('Пользователь не найден');
+        throw new NotFoundError(NOT_FOUND_ERROR_MESSAGE);
       }
       return res.send({ user });
     })
     .catch((err) => {
       if (err.name === 'CastError' || err.name === 'ValidationError') {
-        next(new BadRequestError('Переданы некорректные данные'));
+        next(new BadRequestError(BAD_REQUEST_ERROR_MESSAGE));
       } else {
         next(err);
       }

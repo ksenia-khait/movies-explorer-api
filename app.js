@@ -1,7 +1,5 @@
 require('dotenv').config();
 
-// console.log(process.env.NODE_ENV);
-
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
@@ -10,9 +8,9 @@ const { errors } = require('celebrate');
 const helmet = require('helmet');
 
 const { allowedCors } = require('./constants/constants');
-const { limiter } = require('./middlewares/reateLimit');
+const rateLimiter = require('./middlewares/rateLimit');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
-const { errorHandler } = require('./middlewares/errorHandler');
+const errorHandler = require('./middlewares/errorHandler');
 const MONGO_DB_NAME = require('./constants/constants');
 const router = require('./routes/index');
 
@@ -26,7 +24,7 @@ mongoose.connect(MONGO_DB_NAME);
 
 app.use(requestLogger);
 app.use(helmet());
-app.use(limiter);
+app.use(rateLimiter);
 
 app.get('/crash-test', () => {
   setTimeout(() => {

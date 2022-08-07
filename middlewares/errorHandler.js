@@ -1,19 +1,8 @@
 const errorHandler = (err, req, res, next) => {
-  const { statusCode = 500, message } = err;
-  if (err.kind === 'ObjectId') {
-    res.status(400).send({
-      message: 'Переданы некорректные данные',
-    });
-  } else {
-    res.status(statusCode).send({
-      message: statusCode === 500
-        ? 'Что-то пошло не так'
-        : message,
-    });
-  }
-  if (next) {
-    next();
-  }
+  const status = err.statusCode || 500;
+  const { message } = err;
+  res.status(status).json({ err: message || 'Произошла ошибка на сервере' });
+  return next();
 };
 
 module.exports = errorHandler;
