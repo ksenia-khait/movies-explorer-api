@@ -7,11 +7,11 @@ const cors = require('cors');
 const { errors } = require('celebrate');
 const helmet = require('helmet');
 
-const { allowedCors } = require('./constants/constants');
+const { NODE_ENV, PROD_MONGO_URL } = process.env;
 const rateLimiter = require('./middlewares/rateLimit');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 const errorHandler = require('./middlewares/errorHandler');
-const { MONGO_DB_NAME } = require('./constants/constants');
+const { allowedCors, MONGO_DB_NAME } = require('./constants/constants');
 const router = require('./routes/index');
 
 const app = express();
@@ -20,7 +20,7 @@ const { PORT = 3000 } = process.env;
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-mongoose.connect('mongodb://localhost:27017/moviesdb');
+mongoose.connect(NODE_ENV === 'production' ? PROD_MONGO_URL : MONGO_DB_NAME);
 
 app.use(requestLogger);
 app.use(helmet());

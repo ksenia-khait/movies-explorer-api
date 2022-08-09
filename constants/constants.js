@@ -1,4 +1,4 @@
-const { NODE_ENV, JWT_SECRET, DATABASE = 'mongodb://localhost:27017/moviesdb' } = process.env;
+const { NODE_ENV, JWT_SECRET } = process.env;
 
 const regExLink = /http(s?):\/\/(www\.)?[0-9a-zA-Z-]+\.[a-zA-Z]+([0-9a-zA-Z-._~:?#[\]@!$&'()*+,;=]+)/;
 
@@ -9,7 +9,7 @@ const allowedCors = [
   'http://localhost:3001',
 ];
 
-const MONGO_DB_NAME = NODE_ENV === 'production' ? DATABASE : 'mongodb://localhost:27017/moviesdb';
+const MONGO_DB_NAME = 'mongodb://localhost:27017/moviesdb';
 const JWT_IN_DEV = NODE_ENV === 'production' ? JWT_SECRET : 'dev-secret';
 
 const MONGO_DUPLICATE_ERROR_CODE = 11000;
