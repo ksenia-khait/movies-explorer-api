@@ -24,7 +24,6 @@ mongoose.connect(NODE_ENV === 'production' ? PROD_MONGO_URL : MONGO_DB_NAME);
 
 app.use(requestLogger);
 app.use(helmet());
-console.log(rateLimiter)
 app.use(rateLimiter);
 
 app.get('/crash-test', () => {
