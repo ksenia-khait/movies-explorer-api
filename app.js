@@ -8,7 +8,7 @@ const { errors } = require('celebrate');
 const helmet = require('helmet');
 
 const { NODE_ENV, PROD_MONGO_URL } = process.env;
-const rateLimiter = require('./middlewares/rateLimit');
+const { rateLimiter } = require('./middlewares/rateLimit');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 const errorHandler = require('./middlewares/errorHandler');
 const { allowedCors, MONGO_DB_NAME } = require('./constants/constants');
@@ -24,6 +24,7 @@ mongoose.connect(NODE_ENV === 'production' ? PROD_MONGO_URL : MONGO_DB_NAME);
 
 app.use(requestLogger);
 app.use(helmet());
+console.log(rateLimiter)
 app.use(rateLimiter);
 
 app.get('/crash-test', () => {
