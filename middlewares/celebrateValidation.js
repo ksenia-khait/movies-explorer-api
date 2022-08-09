@@ -6,7 +6,6 @@ const {
 const { regExLink } = require('../constants/constants');
 const { LINK_FORMAT_ERROR_MESSAGE } = require('../constants/constants');
 
-
 module.exports.validateRegister = celebrate({
   body: Joi.object()
     .keys({

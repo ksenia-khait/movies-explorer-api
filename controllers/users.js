@@ -116,6 +116,8 @@ module.exports.updateUser = (req, res, next) => {
     .catch((err) => {
       if (err.name === 'CastError' || err.name === 'ValidationError') {
         next(new BadRequestError(BAD_REQUEST_ERROR_MESSAGE));
+      } else if (err.code === MONGO_DUPLICATE_ERROR_CODE) {
+        next(new ConflictError(CONFLICT_ERROR_MESSAGE));
       } else {
         next(err);
       }
