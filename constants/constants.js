@@ -1,4 +1,5 @@
 const { NODE_ENV, JWT_SECRET, DATABASE = 'mongodb://localhost:27017/moviesdb' } = process.env;
+
 const regExLink = /http(s?):\/\/(www\.)?[0-9a-zA-Z-]+\.[a-zA-Z]+([0-9a-zA-Z-._~:?#[\]@!$&'()*+,;=]+)/;
 
 const allowedCors = [
@@ -19,6 +20,8 @@ const CONFLICT_ERROR_MESSAGE = 'Данный email уже занят';
 const NOT_FOUND_ERROR_MESSAGE = 'Данные по запросу не найдены';
 const UNAUTHORIZED_ERROR_MESSAGE = 'Передан некорректный email или пароль';
 const FORBIDDEN_ERROR_MESSAGE = 'Вы не можете удалять чужие фильмы';
+const SERVER_ERROR_MESSAGE = 'Произошла ошибка на сервере';
+const LINK_FORMAT_ERROR_MESSAGE = 'Некорректный формат ссылки';
 
 module.exports = {
   regExLink,
@@ -32,4 +35,6 @@ module.exports = {
   NOT_FOUND_ERROR_MESSAGE,
   UNAUTHORIZED_ERROR_MESSAGE,
   FORBIDDEN_ERROR_MESSAGE,
+  SERVER_ERROR_MESSAGE,
+  LINK_FORMAT_ERROR_MESSAGE,
 };

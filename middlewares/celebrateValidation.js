@@ -4,6 +4,8 @@ const {
 } = require('celebrate');
 
 const { regExLink } = require('../constants/constants');
+const { LINK_FORMAT_ERROR_MESSAGE } = require('../constants/constants');
+
 
 module.exports.validateRegister = celebrate({
   body: Joi.object()
@@ -71,7 +73,7 @@ module.exports.validateCreateMovie = celebrate({
         .required()
         .custom((value, helpers) => {
           if (!regExLink.test(value)) {
-            return helpers.error('Некорректный формат ссылки');
+            return helpers.error(LINK_FORMAT_ERROR_MESSAGE);
           }
           return value;
         }),
@@ -79,7 +81,7 @@ module.exports.validateCreateMovie = celebrate({
         .required()
         .custom((value, helpers) => {
           if (!regExLink.test(value)) {
-            return helpers.error('Некорректный формат ссылки');
+            return helpers.error(LINK_FORMAT_ERROR_MESSAGE);
           }
           return value;
         }),
@@ -87,7 +89,7 @@ module.exports.validateCreateMovie = celebrate({
         .required()
         .custom((value, helpers) => {
           if (!regExLink.test(value)) {
-            return helpers.error('Некорректный формат ссылки');
+            return helpers.error(LINK_FORMAT_ERROR_MESSAGE);
           }
           return value;
         }),

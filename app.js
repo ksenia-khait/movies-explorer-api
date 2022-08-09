@@ -11,7 +11,7 @@ const { allowedCors } = require('./constants/constants');
 const rateLimiter = require('./middlewares/rateLimit');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 const errorHandler = require('./middlewares/errorHandler');
-const {MONGO_DB_NAME} = require('./constants/constants');
+const { MONGO_DB_NAME } = require('./constants/constants');
 const router = require('./routes/index');
 
 const app = express();
@@ -20,7 +20,7 @@ const { PORT = 3000 } = process.env;
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-mongoose.connect(MONGO_DB_NAME);
+mongoose.connect('mongodb://localhost:27017/moviesdb');
 
 app.use(requestLogger);
 app.use(helmet());
