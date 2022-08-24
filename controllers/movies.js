@@ -58,13 +58,13 @@ module.exports.createMovie = (req, res, next) => {
 };
 
 module.exports.removeMovie = (req, res, next) => {
-  Movie.findById(req.params._id)
+  Movie.findById(req.params.movieId)
     .orFail(new NotFoundError(NOT_FOUND_ERROR_MESSAGE))
     .then((movie) => {
       if (movie.owner.toString() !== req.user._id) {
         throw new ForbiddenError(FORBIDDEN_ERROR_MESSAGE);
       }
-      Movie.findByIdAndRemove(req.params._id)
+      Movie.findByIdAndRemove(req.params.movieId)
         .then(() => res.send(movie))
         .catch(next);
     })
