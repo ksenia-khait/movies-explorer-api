@@ -65,7 +65,7 @@ module.exports.removeMovie = (req, res, next) => {
         throw new ForbiddenError(FORBIDDEN_ERROR_MESSAGE);
       }
       Movie.findByIdAndRemove(req.params._id)
-        .then(() => res.send({ movie }))
+        .then(() => res.send(movie))
         .catch(next);
     })
     .catch((err) => {
