@@ -14,6 +14,8 @@
 + домен к серверу: https://api.diplomamovies.nomoredomains.xyz
 + домен к фронтенду: https://diplomamovies.nomoredomains.xyz
 
+Для создания проекта использовалась виртуальная машина от Yandex.Cloud. Если вам не удалось зайти на сайт, возможно она остановлена.
+
 #### Части диплома:
 1. [movies-explorer-api](https://github.com/ksenia-khait/movies-explorer-api) - бекенд часть приложения Movies-Explorer
 2. [movies-explorer-frontend](https://github.com/ksenia-khait/movies-explorer-frontend) - фронтенд часть приложения Movies-Explorer
