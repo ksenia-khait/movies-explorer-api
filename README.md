@@ -8,11 +8,9 @@
 + Express.js
 + Nginx
 
-### Домен к серверу
-https://api.diplomamovies.nomoredomains.xyz
+**Домен к серверу** https://api.diplomamovies.nomoredomains.xyz
 
-### Домен к фронтенду
-https://diplomamovies.nomoredomains.xyz
+**Домен к фронтенду** https://diplomamovies.nomoredomains.xyz
 
 #### Части диплома:
 1. [movies-explorer-api](https://github.com/ksenia-khait/movies-explorer-api) - бекенд часть приложения Movies-Explorer
